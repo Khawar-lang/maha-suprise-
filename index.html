@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise for Maha</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        h1, p {
+            margin: 20px 0;
+        }
+        .buttons {
+            margin-top: 30px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .yes {
+            background: #4caf50;
+            color: white;
+        }
+        .no {
+            background: #f44336;
+            color: white;
+        }
+        .moving-no {
+            position: absolute;
+        }
+        @keyframes hug {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .emoji {
+            font-size: 50px;
+            animation: hug 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="content">
+        <h1>Maha mere jaan, kya aap mujhse naraz hain? 🥺</h1>
+        <div class="buttons">
+            <button class="yes" onclick="nextPage('yes')">Yes</button>
+            <button class="no" onclick="nextPage('no')">No</button>
+        </div>
+    </div>
+
+    <script>
+        let step = 1;
+
+        function nextPage(answer) {
+            const content = document.getElementById('content');
+            if (answer === 'no') {
+                content.innerHTML = `
+                    <h1>🎉 YAY! I’m so happy! 🥳</h1>
+                    <p>Thank you, my love! You made my day. 💖</p>
+                `;
+                return;
+            }
+
+            if (step === 1) {
+                content.innerHTML = `
+                    <h1>Mere Shehzade, mere se gussa hain? 😔</h1>
+                    <div class="buttons">
+                        <button class="yes" onclick="nextPage('yes')">Yes</button>
+                        <button class="no" onclick="nextPage('no')">No</button>
+                    </div>
+                `;
+                step++;
+            } else if (step === 2) {
+                content.innerHTML = `
+                    <h1>Mere Queen, ab khawar aapko gussa aur naraz hone nahi dega. ❤️</h1>
+                    <p>Mere Shehzade pka promise! 🤗</p>
+                    <div class="buttons">
+                        <button class="yes" onclick="nextPage('yes')">OK</button>
+                    </div>
+                `;
+                step++;
+            } else if (step === 3) {
+                content.innerHTML = `
+                    <h1>Kya mere Emma, mere Maha, mann gayi hain? 🌎❤️</h1>
+                    <div class="buttons">
+                        <button class="yes" onclick="nextPage('yes')">Yes</button>
+                        <button class="no moving-no" id="noButton">No</button>
+                    </div>
+                `;
+                const noButton = document.getElementById('noButton');
+                noButton.addEventListener('mouseover', () => {
+                    noButton.style.top = Math.random() * window.innerHeight + 'px';
+                    noButton.style.left = Math.random() * window.innerWidth + 'px';
+                });
+                step++;
+            } else if (step === 4) {
+                content.innerHTML = `
+                    <h1>🎉 Mujhe pata tha mere Shehzadi maan jaayegi! ❤️</h1>
+                    <div class="emoji">🤗👫🎉</div>
+                    <p>Maha, aap meri duniya ho. 🌹</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
